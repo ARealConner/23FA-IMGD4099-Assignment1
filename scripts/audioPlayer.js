@@ -4,15 +4,15 @@ var context;
 
 window.onload = function() {
     context = new AudioContext();
-    context.onstatechange = function() {
-        if(context.state === 'running') {
-            stop();
-        }
-    }
+    // context.onstatechange = function() {
+    //     if(context.state === 'running') {
+    //         play();
+    //     }
+    // }
 };
 
 function play() {
-    var promise = document.getElementById('PageAudio').play();
+    const promise = document.getElementById('PageAudio').play();
     if (promise !== undefined) {
         promise.then(_ => {
             console.log("playing");
