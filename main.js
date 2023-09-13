@@ -40,8 +40,12 @@ async function main() {
     });
 
     window.addEventListener('resize', () => {
-        sg.uniforms.res = [window.innerWidth, window.innerHeight];
+        const canvas = document.querySelector('canvas');
+        const device = sg.device;
+        // sg.uniforms.res = [window.innerWidth, window.innerHeight];
+        seagulls.setupCanvas(device, canvas);
     });
+
 }
 
 // This will start both the audio and the WebGPU script when the play button is clicked
