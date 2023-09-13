@@ -29,7 +29,7 @@ async function main() {
     // Update frame count and audio data on each frame
     sg.onframe(() => {
         sg.uniforms.frame = framecounter++;
-        console.log(Audio.low, Audio.mid, Audio.high);
+        // console.log(Audio.low, Audio.mid, Audio.high);
         sg.uniforms.audio = [Audio.low, Audio.mid, Audio.high];  // Update the audio uniform values
     });
 
@@ -50,11 +50,9 @@ async function main() {
 
 }
 
-window.addEventListener('load', () => {
-        document.getElementById("start").click();
-});
-    
-document.getElementById("start").click();
+// window.addEventListener('load', () => { document.getElementById("start").click(); });
+
+// document.getElementById("start").click();
 
 // This will start both the audio and the WebGPU script when the play button is clicked
 document.getElementById("start").addEventListener('click', function() {
