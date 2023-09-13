@@ -35,3 +35,36 @@ canvas {
     background-color: rgba(0, 0, 0, 0.9);  /* Slightly darker background on hover */
     transform: scale(1.05);  /* Slight growth effect on hover */
 }
+
+/* Start Button */
+#startContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);  /* Semi-transparent dark background */
+    z-index: 20;  /* Ensure it's above other content */
+}
+
+#start {
+    background-color: #2E2E2E;  /* Dark grey */
+    border: none;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    color: #f4f4f4;  /* Light text color */
+    cursor: pointer;
+    outline: none;  /* Remove default browser outline */
+    transition: background-color 0.3s, transform 0.3s;  /* Smooth transitions for hover effects */
+}
+
+#start:hover {
+    background-color: #434343;  /* Slightly lighter grey for hover */
+    transform: scale(1.05);  /* Slight growth effect on hover */
+}
+
+#start:active {
+    background-color: #1B1B1B;  /* Even darker grey for active/click effect */
+}
+

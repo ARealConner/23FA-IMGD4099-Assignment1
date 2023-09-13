@@ -1,6 +1,7 @@
 import { default as seagulls } from './dependencies/seagulls.js';
 // import { default as Video } from './video.js'
 import { default as Audio } from './dependencies/audio.js';
+import { resumeAudioContextAndPlay } from './scripts/audioPlayer.js'; // <-- Importing the function
 
 async function loadShader() {
     const response = await fetch('shader.wgsl');
@@ -15,21 +16,19 @@ async function main() {
     const sg = await seagulls.init();
     const shader = await loadShader();
 
-    // Start audio on body click
-    document.body.onclick = Audio.start;
-
     // Initial uniforms setting
     let framecounter = 0;
     sg.uniforms({
         frame: framecounter,
         res: [window.innerWidth, window.innerHeight],
-        audio: [0, 0, 0],
+        audio: [0, 0, 0],  // Use the processed audio values here
         mouse: [0, 0, 0],
     });
 
-    // Update frame count on each frame
+    // Update frame count and audio data on each frame
     sg.onframe(() => {
         sg.uniforms.frame = framecounter++;
+        sg.uniforms.audio = [Audio.low, Audio.mid, Audio.high];  // Update the audio uniform values
     });
 
     // Render setup
@@ -45,4 +44,11 @@ async function main() {
     });
 }
 
-main();
+// This will start both the audio and the WebGPU script when the play button is clicked
+document.getElementById("start").addEventListener('click', function() {
+    resumeAudioContextAndPlay();
+    main();
+
+    // Hide the play button after starting everything
+    document.getElementById("startContainer").style.display = 'none';
+});

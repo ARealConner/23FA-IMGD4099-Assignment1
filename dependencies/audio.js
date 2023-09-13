@@ -1,59 +1,53 @@
 const Audio = {
     __hasInput: false,
     ctx: null,
-    bins:null,
+    bins: null,
 
-    start( bins=null ) {
-        if( Audio.__hasInput === false ) {
-            Audio.ctx = new AudioContext()
-            Audio.createInput().then( input => {
-                //if( bins !== null ) Audio.bins = bins
-                Audio.createFFT()
-                input.connect( Audio.FFT )
+    start(bins = null) {
+        if (Audio.__hasInput === false) {
+            Audio.ctx = new AudioContext();
+            Audio.createInputFromAudioElement().then(input => {
+                Audio.createFFT();
+                input.connect(Audio.FFT);
 
-                Audio.interval = setInterval( Audio.fftCallback, 1000/60 )
-                //window.FFT = Audio.FFT
-            })
-            Audio.__hasInput = true
-        }else{
-            if( bins !== null ) Audio.bins = bins
+                Audio.interval = setInterval(Audio.fftCallback, 1000 / 60);
+            });
+            Audio.__hasInput = true;
+        } else {
+            if (bins !== null) Audio.bins = bins;
         }
     },
 
-    createInput() {
-        console.log( 'connecting audio input...' )
+    createInputFromAudioElement() {
+        console.log('connecting audio input from audio element...');
 
-        const p = new Promise( resolve => {
-            navigator.mediaDevices.getUserMedia({ audio:true, video:false })
-                .then( stream => {
-                    console.log( 'audio input connected' )
-                    Audio.input = Audio.ctx.createMediaStreamSource( stream )
-                    //Audio.mediaStreamSource.connect( Gibberish.node )
-                    Audio.__hasInput = true
-                    resolve( Audio.input )
-                })
-                .catch( err => {
-                    console.log( 'error opening audio input:', err )
-                })
-        })
-        return p
+        return new Promise(resolve => {
+            const audioElement = document.getElementById('musicPlayer');
+            if (audioElement) {
+                Audio.input = Audio.ctx.createMediaElementSource(audioElement);
+                console.log('audio input connected from audio element');
+                resolve(Audio.input);
+            } else {
+                console.error('Unable to find the audio element.');
+            }
+        });
     },
 
     createFFT() {
-        Audio.FFT = Audio.ctx.createAnalyser()
+        Audio.FFT = Audio.ctx.createAnalyser();
 
-        let __windowSize = 512
-        Object.defineProperty( Audio, 'windowSize', {
-            configurable:true,
-            get() { return __windowSize },
-            set(v){
-                __windowSize = v
-                Audio.FFT.fftSize = v
-                Audio.FFT.values = new Uint8Array( Audio.FFT.frequencyBinCount )
+        let __windowSize = 512;
+        Object.defineProperty(Audio, 'windowSize', {
+            configurable: true,
+            get() { return __windowSize; },
+            set(v) {
+                __windowSize = v;
+                Audio.FFT.fftSize = v;
+                Audio.FFT.values = new Uint8Array(Audio.FFT.frequencyBinCount);
             }
-        })
+        });
 
-        Audio.windowSize = 512
+        Audio.windowSize = 512;
     },
 
     fftCallback() {
