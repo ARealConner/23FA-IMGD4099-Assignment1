@@ -4,11 +4,11 @@ var context;
 
 window.onload = function() {
     context = new AudioContext();
-    // context.onstatechange = function() {
-    //     if(context.state === 'running') {
-    //         play();
-    //     }
-    // }
+    context.onstatechange = function() {
+        if(context.state === 'running') {
+            stop();
+        }
+    }
 };
 
 function play() {
