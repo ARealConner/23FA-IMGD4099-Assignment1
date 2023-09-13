@@ -1,6 +1,6 @@
-import { default as seagulls } from './seagulls.js';
+import { default as seagulls } from './dependencies/seagulls.js';
 // import { default as Video } from './video.js'
-import { default as Audio } from './audio.js';
+import { default as Audio } from './dependencies/audio.js';
 
 async function loadShader() {
     const response = await fetch('shader.wgsl');

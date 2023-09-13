@@ -17,19 +17,21 @@ canvas {
     position: absolute;
     top: 10px;
     left: 10px;
-    background-color: rgba(255, 255, 255, 0.7);
-    color: black;
-    padding: 5px 10px;
-    border: none;
+    background-color: rgba(0, 0, 0, 0.8);  /* Dark background with some transparency */
+    color: #f4f4f4;  /* Light text color */
+    padding: 8px 15px;
+    border: 1px solid #f4f4f4;  /* Light border */
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 1rem;
 
     /* Ensure the button is above other elements like the canvas */
     z-index: 10;
 }
 
 .back-btn:hover {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(0, 0, 0, 0.9);  /* Slightly darker background on hover */
+    transform: scale(1.05);  /* Slight growth effect on hover */
 }
