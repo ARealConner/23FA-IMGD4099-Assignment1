@@ -9,6 +9,8 @@ const Audio = {
             Audio.createInputFromAudioElement().then(input => {
                 Audio.createFFT();
                 input.connect(Audio.FFT);
+                Audio.FFT.connect(Audio.ctx.destination);
+
 
                 Audio.interval = setInterval(Audio.fftCallback, 1000 / 60);
             });
@@ -22,7 +24,7 @@ const Audio = {
         console.log('connecting audio input from audio element...');
 
         return new Promise(resolve => {
-            const audioElement = document.getElementById('musicPlayer');
+            const audioElement = document.getElementById('PageAudio');
             if (audioElement) {
                 Audio.input = Audio.ctx.createMediaElementSource(audioElement);
                 console.log('audio input connected from audio element');

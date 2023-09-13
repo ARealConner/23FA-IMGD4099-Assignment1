@@ -15,7 +15,8 @@ async function main() {
     // Initialize seagulls and load the shader
     const sg = await seagulls.init();
     const shader = await loadShader();
-
+    Audio.start()
+    
     // Initial uniforms setting
     let framecounter = 0;
     sg.uniforms({
@@ -28,6 +29,7 @@ async function main() {
     // Update frame count and audio data on each frame
     sg.onframe(() => {
         sg.uniforms.frame = framecounter++;
+        console.log(Audio.low, Audio.mid, Audio.high);
         sg.uniforms.audio = [Audio.low, Audio.mid, Audio.high];  // Update the audio uniform values
     });
 
@@ -48,11 +50,19 @@ async function main() {
 
 }
 
+window.addEventListener('load', () => {
+        document.getElementById("start").click();
+});
+    
+document.getElementById("start").click();
+
 // This will start both the audio and the WebGPU script when the play button is clicked
 document.getElementById("start").addEventListener('click', function() {
     resumeAudioContextAndPlay();
-    main();
+    main().then(r => r);
 
     // Hide the play button after starting everything
     document.getElementById("startContainer").style.display = 'none';
 });
+
+

@@ -15,9 +15,9 @@ fn fs( @builtin(position) pos : vec4f ) -> @location(0) vec4f {
   var color: vec4f = vec4f(0.);
   let nMouse = mouse.xy / res;
   let frequency = 2.;
-  let gain = 1.;
-  let thickness = nMouse.y/20;
-  for( var i:f32 = 0.; i < nMouse.x*10; i+= 1. ) {
+  let gain = audio[0]*2;
+  let thickness = audio[1]/150;
+  for( var i:f32 = 0.; i < audio[2]*50; i+= 1. ) {
     p.x += sin( p.y + (frame/60.) * i ) * gain;
     color += abs( thickness / p.x );
   }
